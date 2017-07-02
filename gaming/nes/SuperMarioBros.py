@@ -2,12 +2,16 @@ from collections import namedtuple
 from gaming.nes.NESGame import NESGame
 from gaming import res_path
 from os.path import join as join_path
+from os import linesep
 
 
 Enemy = namedtuple('Enemy', ['x', 'y', 'id'])
 
 
 class SuperMarioBros(NESGame):
+    BLOCK_COLS = 18
+    BLOCK_ROWS = 13
+
     game_path = join_path(res_path, "mario_bros.nes")
     savegame_path = join_path(res_path, "mario_bros.nes-savegame")
 
@@ -51,9 +55,9 @@ class SuperMarioBros(NESGame):
     @staticmethod
     def level_pos_to_blocknum(x, y):
         x_in_b = ((x % 256) // 16)  # pos within screen
-        return (x // 256) % 2, x_in_b, (y - 16) // 16
+        return SuperMarioBros.get_screen(x), x_in_b, (y - 16) // 16
 
-    def get_blockbuf_value_by_lvl(self, x, y):
+    def get_blockbuf_value(self, x, y):
         """
         Calc the blockbuf value based on block(x, y)! The chosen screen is relative to Marios position.
         The Block buffer consists of two 16*13 buffers.
@@ -127,29 +131,38 @@ class SuperMarioBros(NESGame):
                     enemy_y -= 16
                 enemy_screen, enemy_xb, enemy_yb = SuperMarioBros.level_pos_to_blocknum(enemy_x, enemy_y)
                 enemies.append(Enemy(16 * enemy_screen + enemy_xb, enemy_yb, enemy_id))
-                # TODO: filter out posy = 0 ?
         return enemies
 
     def get_inputs(self):
         input_vals = []
+        enemies = self.get_enemies()
+
         # Go over blocks in radius
         for k in range(-self.sight_y_up+ 1, self.sight_y_down+ 1):
             for j in range(self.sight_x):
-                input_vals.append(self.get_blockbuf_value_by_lvl(self.block_x + j + 1, self.block_y + k))
-        # Add enemies
-        y_border = (self.block_y - (self.sight_y_up)) + 1
-        for enemy in self.get_enemies():
-            if self.screen * 16 + self.block_x < enemy.x <= self.screen * 16 + self.block_x + self.sight_x:
-                if enemy.y > y_border and enemy.y < y_border + self.sight_y_up + self.sight_y_down:
-                    arr_x = enemy.x - (self.screen * 16 + self.block_x) - 1
-                    if y_border < 0:
-                        arr_y = (self.sight_y_up -1) * self.sight_x # Very ugly hack. set enemy infront of mario in case marios sights
-                        # goes outside frame. TODO: fix this.
-                    else:
-                        arr_y = (enemy.y - y_border) * self.sight_x
-                    idx = arr_x + arr_y
-                    input_vals[idx] = enemy.id
+                y_block = self.block_y + k
+                x_block = self.block_x + j + 1
+                if y_block < 0 or y_block > SuperMarioBros.BLOCK_ROWS:
+                    input_vals.append(0)  # if we see higher/lower than the screen, we see 0.
+                else:
+                    blockbuf_val = self.get_blockbuf_value(x_block, y_block)
+                    input_vals.append(blockbuf_val)  # add it to input
+                    if blockbuf_val == 0:
+                        for enemy in enemies:  # check for enemies if there was no block
+                            if enemy.y == y_block and enemy.x == x_block:
+                                input_vals[-1] = enemy.id
+                                break
         return input_vals
+
+    def pretty_inputs_string(self):
+        """
+        :return: printable version of input in rows and columns
+        """
+        inputs = self.get_inputs()
+        rows = []
+        for i in range(self.sight_y_up + self.sight_y_down):
+            rows.append(str(inputs[self.sight_x*i:(i + 1) * self.sight_x]))
+        return linesep.join(rows)
 
     def get_normalized_inputs(self):
         inp = self.get_inputs()

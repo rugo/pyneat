@@ -21,8 +21,7 @@ while True:
     inputs = mario_game.get_normalized_inputs()  # Get the normalized inputs (the "sight")
 
     # Print the inputs row wise (as seen on screen)
-    for row in range(SIGHT_Y_UP + SIGHT_Y_DOWN):
-        print(inputs[row * SIGHT_X:(row + 1) * SIGHT_X])
+    print(mario_game.pretty_inputs_string())
     print()
 
     if -1 in inputs:  # -1 is the normalized rep. of an enemy
