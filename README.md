@@ -1,5 +1,5 @@
 # PyNEAT
-A small experiment where HyperNEat is used to create a neuronal network to play Super Mario Bros.
+A small experiment where HyperNeat is used to create a neuronal network to play Super Mario Bros.
 
 
 ## How it works
@@ -8,9 +8,14 @@ This implementation uses the block buffer of Super Mario Bros. to create inputs 
 ![Marios sight](res/inputs.png)
 
 ## How to use
-This has only been tested on Linux machines. Feel free to port it.
+This has only been tested on Linux machines and with Python 3. Feel free to port it.
 
-If you're using 64 bit Linux with installed liballegro, you can just run the examples. 
+If you're using 64 bit Linux with installed liballegro, you can just run the examples. The library path has to be set to ``gaming/clibs``:
+
+```bash
+export LD_LIBRARY_PATH=gaming/clibs
+python3 example_play_by_hand.py
+```
 
 Otherwise you need to install libalegro5, compile my small abstraction lib [libnesfrontend](http://github.com/rugo/libnesfrontend) and a libretro NES core, preferably [QuickNES](https://github.com/libretro/QuickNES_Core). This is described on the [libnesfrontend](http://github.com/rugo/libnesfrontend) page. 
 
