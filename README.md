@@ -8,7 +8,7 @@ This implementation uses the block buffer of Super Mario Bros. to create inputs 
 ![Marios sight](res/inputs.png)
 
 ## How to use
-This has only tested been tested on Linux machines. Feel free to port it.
+This has only been tested on Linux machines. Feel free to port it.
 
 To use this, you need to compile my small abstraction lib [libnesfrontend](http://github.com/rugo/libnesfrontend) and a libretro NES core, preferably [QuickNES](https://github.com/libretro/QuickNES_Core).
 
