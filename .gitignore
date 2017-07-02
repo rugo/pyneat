@@ -4,4 +4,3 @@
 .idea/workspace.xml
 gaming/__pycache__/
 gaming/nes/__pycache__/
-*.so
