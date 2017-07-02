@@ -9,6 +9,13 @@ Enemy = namedtuple('Enemy', ['x', 'y', 'id'])
 
 
 class SuperMarioBros(NESGame):
+    """
+    Super Mario Bros works with two 13 * 18 block buffers at
+    0x500 and 0x5D0 in RAM.
+    Mario walks through them and they are alternating.
+    Only the parts mario sees are sure to be already loaded.
+    This class uses the block buffers to create inputs.
+    """
     BLOCK_COLS = 18
     BLOCK_ROWS = 13
 
@@ -77,6 +84,11 @@ class SuperMarioBros(NESGame):
         return self.emu.get_ram_byte(0x500 + offset)
 
     def draw_debug_map(self):
+        """
+        This prints the entire block buffer formatted in a nice way.
+        Mainly used for debugging purposes. This method is independent
+        of other methods in the class and just works.
+        """
         buf = [self.emu.get_ram_byte(0x500 + x) for x in range(0, 414 + 1)]
         # player pos
         posx = (self.x % 256) // 16
