@@ -17,7 +17,7 @@ export LD_LIBRARY_PATH=gaming/clibs
 python3 example_play_by_hand.py
 ```
 
-Otherwise you need to install libalegro5, compile my small abstraction lib [libnesfrontend](http://github.com/rugo/libnesfrontend) and a libretro NES core, preferably [QuickNES](https://github.com/libretro/QuickNES_Core). This is described on the [libnesfrontend](http://github.com/rugo/libnesfrontend) page. 
+Otherwise you need to install libalegro 5 (``apt install liballegro5.0`` on Debian), compile my small abstraction lib [libnesfrontend](http://github.com/rugo/libnesfrontend) and a libretro NES core, preferably [QuickNES](https://github.com/libretro/QuickNES_Core). This is described on the [libnesfrontend](http://github.com/rugo/libnesfrontend) page. 
 
 Compile them and copy them into the ``clibs`` folder:
 
