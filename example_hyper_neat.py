@@ -15,7 +15,7 @@ except ImportError:
     exit(1)
 
 if len(argv) < 2:
-    print("Call as {} experiment_name")
+    print("Call as {} experiment_name".format(argv[0]))
     print("Every tenth generation will be saved to disk under this name.")
     exit(2)
 
