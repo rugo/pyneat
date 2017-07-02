@@ -19,6 +19,6 @@ cp libretro_quicknes.so gaming/clibs/libretrones.so
 cp libnesfrontend.so gaming/clibs/
 ```
 
-Make sure the library is called ``libretrones.so``.
+Make sure the libretro library (here QuickNES) is called ``libretrones.so``.
 
 If you want to use this on windows, you have to change the ``emulator.NES`` class to use a [DLL instead](https://docs.python.org/3/library/ctypes.html#loading-dynamic-link-libraries).
