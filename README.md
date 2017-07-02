@@ -10,9 +10,11 @@ This implementation uses the block buffer of Super Mario Bros. to create inputs 
 ## How to use
 This has only been tested on Linux machines. Feel free to port it.
 
-To use this, you need to compile my small abstraction lib [libnesfrontend](http://github.com/rugo/libnesfrontend) and a libretro NES core, preferably [QuickNES](https://github.com/libretro/QuickNES_Core).
+If you're using 64 bit Linux with installed liballegro, you can just run the examples. 
 
-Compile both of them and copy them into the ``clibs`` folder:
+Otherwise you need to install libalegro5, compile my small abstraction lib [libnesfrontend](http://github.com/rugo/libnesfrontend) and a libretro NES core, preferably [QuickNES](https://github.com/libretro/QuickNES_Core). This is described on the [libnesfrontend](http://github.com/rugo/libnesfrontend) page. 
+
+Compile them and copy them into the ``clibs`` folder:
 
 ```bash
 cp libretro_quicknes.so gaming/clibs/libretrones.so
