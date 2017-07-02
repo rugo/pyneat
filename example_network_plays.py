@@ -1,7 +1,7 @@
 """
 Let a trained neuronal network play Mario.
 """
-from sys import argv
+from sys import exit
 from gaming.emulator import NES
 from gaming.nes.SuperMarioBros import SuperMarioBros
 
