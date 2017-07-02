@@ -38,7 +38,8 @@ class SuperMarioBros(NESGame):
         self.x = (a << 8) + b
 
     def fitness(self):
-        return self.x
+        # 0x760 has the level number
+        return (self.emu.get_ram_byte(0x760) << 16) | self.x
 
     def is_alive(self):
         return self.emu.get_ram_byte(0x75A) >= 2
