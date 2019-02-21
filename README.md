@@ -1,5 +1,5 @@
 # PyNEAT
-A small experiment where HyperNeat is used to create a neuronal network to play Super Mario Bros.
+A small experiment where HyperNeat is used to create a neural network to play Super Mario Bros.
 
 
 ## How it works
